@@ -6,6 +6,11 @@ const app = express();
 
 app.use("/public", express.static("public"));
 
+app.use((req, _, next) => {
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  return next();
+});
+
 app.get("/", (_, res) => {
   return res.sendFile(path.join(__dirname, "views", "index.html"));
 });
